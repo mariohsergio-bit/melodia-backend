@@ -15,6 +15,11 @@ const payment = new Payment(client);
 app.use(cors());
 app.use(express.json());
 
+// Rota de teste
+app.get('/health', (req, res) => {
+    res.json({ status: 'ok', message: 'Backend funcionando!' });
+});
+
 app.post('/api/create-pix', async (req, res) => {
     try {
         const { nome, telefone, email, genero, energia, referencia, descricao } = req.body;
@@ -57,7 +62,5 @@ app.get('/api/payment-status/:id', async (req, res) => {
     const result = await payment.get({ id: req.params.id });
     res.json({ status: result.status });
 });
-
-app.get('/health', (req, res) => res.json({ status: 'ok' }));
 
 app.listen(PORT, () => console.log('Backend rodando!'));
